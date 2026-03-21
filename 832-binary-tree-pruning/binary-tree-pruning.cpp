@@ -11,24 +11,12 @@
  */
 class Solution {
 public:
-    bool ispresentone(TreeNode *root)
-    {
-        if(root==NULL)
-            return false;
-        if(root->val==1)
-            return true;
-        return (ispresentone(root->left) || ispresentone(root->right));
-    }
     TreeNode* pruneTree(TreeNode* root) {
         if(root==NULL)
             return NULL;
-       if(!ispresentone(root->left))
-            root->left=NULL;
-        if(!ispresentone(root->right))
-            root->right=NULL;
-      pruneTree(root->left);
-      pruneTree(root->right);
-      if(root->left==NULL && root->right==NULL && root->val==0)
+        root->left=pruneTree(root->left);
+        root->right=pruneTree(root->right);
+        if(root->left==NULL && root->right==NULL && root->val==0)
             return NULL;
         return root;
     }
