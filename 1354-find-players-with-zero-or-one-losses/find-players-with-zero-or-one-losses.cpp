@@ -1,18 +1,21 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
-        unordered_map<int,int>mp; // creating map to track the losers only.....
         vector<int>winner;
         vector<int>loser;
+        unordered_map<int,int>mp;
         for(int i=0;i<matches.size();i++)
         {
-           mp[matches[i][1]]++;
+            mp[matches[i][1]]++;
         }
         for(int i=0;i<matches.size();i++)
-        {
-            if(mp.find(matches[i][0])==mp.end() && find(winner.begin(),winner.end(),matches[i][0])==winner.end())  //creating list for the winners..
-                winner.push_back(matches[i][0]);
-        }
+            {
+                if(mp.find(matches[i][0])==mp.end())
+                {
+                    winner.push_back(matches[i][0]);
+                    mp[matches[i][0]]=2;
+                }
+            }
         for(auto &it : mp)
         {
             if(it.second==1)
